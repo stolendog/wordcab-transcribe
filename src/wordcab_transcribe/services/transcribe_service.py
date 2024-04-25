@@ -26,7 +26,7 @@ from loguru import logger
 from tensorshare import Backend, TensorShare
 
 from wordcab_transcribe.config import settings
-from wordcab_transcribe.engines.tensorrt_llm.model import WhisperModelTRT
+# from wordcab_transcribe.engines.tensorrt_llm.model import WhisperModelTRT
 from wordcab_transcribe.models import (
     MultiChannelSegment,
     MultiChannelTranscriptionOutput,
@@ -87,22 +87,22 @@ class TranscribeService:
                 device_index=device_index,
                 compute_type=self.compute_type,
             )
-        elif self.model_engine == "tensorrt-llm":
-            logger.info("Using tensorrt-llm model engine.")
-            if "v3" in self.model_path:
-                n_mels = 128
-            else:
-                n_mels = 80
-            self.model = WhisperModelTRT(
-                self.model_path,
-                device=self.device,
-                device_index=device_index,
-                compute_type=self.compute_type,
-                asr_options={
-                    "word_align_model": settings.align_model,
-                },
-                n_mels=n_mels,
-            )
+        # elif self.model_engine == "tensorrt-llm":
+        #     logger.info("Using tensorrt-llm model engine.")
+        #     if "v3" in self.model_path:
+        #         n_mels = 128
+        #     else:
+        #         n_mels = 80
+        #     self.model = WhisperModelTRT(
+        #         self.model_path,
+        #         device=self.device,
+        #         device_index=device_index,
+        #         compute_type=self.compute_type,
+        #         asr_options={
+        #             "word_align_model": settings.align_model,
+        #         },
+        #         n_mels=n_mels,
+        #     )
         else:
             self.model = WhisperModel(
                 self.model_path,

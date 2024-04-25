@@ -25,6 +25,7 @@ from typing import List, Literal, NamedTuple, Optional, Union
 from faster_whisper.transcribe import Segment
 from pydantic import BaseModel, HttpUrl, field_validator
 from tensorshare import TensorShare
+import torch
 
 
 class ProcessTimes(BaseModel):
@@ -558,6 +559,7 @@ class TranscribeRequest(BaseModel):
     repetition_penalty: float
     source_lang: str
     vocab: Union[List[str], None]
+    batch_size: int
 
 
 class Token(BaseModel):

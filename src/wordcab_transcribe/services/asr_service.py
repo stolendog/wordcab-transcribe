@@ -49,9 +49,9 @@ from wordcab_transcribe.models import (
 )
 from wordcab_transcribe.services.concurrency_services import GPUService, URLService
 from wordcab_transcribe.services.diarization.diarize_service import DiarizeService
-from wordcab_transcribe.services.longform_diarization.diarize_service import (
-    LongFormDiarizeService,
-)
+# from wordcab_transcribe.services.longform_diarization.diarize_service import (
+#     LongFormDiarizeService,
+# )
 from wordcab_transcribe.services.post_processing_service import PostProcessingService
 from wordcab_transcribe.services.transcribe_service import TranscribeService
 from wordcab_transcribe.services.vad_service import VadService
@@ -149,7 +149,8 @@ class TranscriptionTask(BaseModel):
 class LocalServiceRegistry:
     """Registry for local services."""
 
-    diarization: Union[DiarizeService, LongFormDiarizeService, None] = None
+    # diarization: Union[DiarizeService, LongFormDiarizeService, None] = None
+    diarization: Union[DiarizeService, None] = None
     post_processing: PostProcessingService = PostProcessingService()
     transcription: Union[TranscribeService, None] = None
     vad: VadService = VadService()
@@ -937,7 +938,7 @@ class ASRAsyncService(ASRService):
             )
 
 
-class ASRLiveService(ASRService):
+# class ASRLiveService(ASRService):
     """ASR Service module for live endpoints."""
 
     def __init__(self, whisper_model: str, compute_type: str, debug_mode: bool) -> None:
@@ -1001,6 +1002,7 @@ class ASRTranscriptionOnly(ASRService):
     def __init__(
         self,
         whisper_model: str,
+        model_engine: str,
         compute_type: str,
         extra_languages: Union[List[str], None],
         extra_languages_model_paths: Union[List[str], None],
@@ -1011,7 +1013,7 @@ class ASRTranscriptionOnly(ASRService):
 
         self.transcription_service = TranscribeService(
             model_path=whisper_model,
-            model_engine=settings.model_engine,
+            model_engine=model_engine,
             compute_type=compute_type,
             device=self.device,
             device_index=self.device_index,
@@ -1037,6 +1039,7 @@ class ASRTranscriptionOnly(ASRService):
             no_speech_threshold=0.6,
             repetition_penalty=1.0,
             vocab=None,
+            batch_size=1,
         )
 
         for gpu_index in self.gpu_handler.device_index:
