@@ -489,6 +489,10 @@ class AudioRequest(BaseRequest):
             }
         }
 
+class InferenceUrlRequest(BaseModel):
+    """Request model for the ASR inference"""
+    url: str
+    data: Optional[AudioRequest] = None
 
 class PongResponse(BaseModel):
     """Response model for the ping endpoint."""
