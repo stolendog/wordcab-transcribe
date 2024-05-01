@@ -33,7 +33,8 @@ RUN apt update && apt install -y \
 RUN apt update && apt install -y \
     libtiff-tools=4.3.0-6ubuntu0.8 \
     libtiff5=4.3.0-6ubuntu0.8 \
-    libgnutls30=3.7.3-4ubuntu1.4 \
+    # libgnutls30=3.7.3-4ubuntu1.4 \
+    libgnutls30 \
     openssl=3.0.2-0ubuntu1.15 \
     libpam-modules=1.4.0-11ubuntu2.4 \
     libpam-modules-bin=1.4.0-11ubuntu2.4 \
@@ -65,10 +66,19 @@ RUN curl -L ${RELEASE_URL} | tar -zx -C /tmp \
     && pip install /tmp/mpi4py-${MPI4PY_VERSION} \
     && rm -rf /tmp/mpi4py*
 
-RUN python -m pip install pip --upgrade \
-    && python -m pip install hatch
+# RUN python -m pip install pip --upgrade \
+# && python -m pip install hatch
+RUN python -m pip install pip --upgrade 
 
 WORKDIR /app
+
+COPY pyproject.toml pyproject.toml
+
+RUN pip install --no-cache-dir tensorrt_llm -U --pre --extra-index-url https://pypi.nvidia.com
+
 COPY . .
 
-CMD ["hatch", "run", "runtime:launch"]
+RUN pip install --no-cache-dir .[runtime]
+
+# CMD ["hatch", "run", "runtime:launch"]
+
