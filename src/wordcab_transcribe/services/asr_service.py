@@ -938,7 +938,7 @@ class ASRAsyncService(ASRService):
             )
 
 
-# class ASRLiveService(ASRService):
+class ASRLiveService(ASRService):
     """ASR Service module for live endpoints."""
 
     def __init__(self, whisper_model: str, compute_type: str, debug_mode: bool) -> None:

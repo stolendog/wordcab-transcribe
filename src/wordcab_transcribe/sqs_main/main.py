@@ -4,6 +4,8 @@ from wordcab_transcribe.services.queue.transcribe_handler import TranscriptionOn
 def transcription_only_cosumer(queue_name: str) -> None:
     message_transcription_handler = TranscriptionOnlyHandler()
 
+    
+
     consumer = SQSConsumer(
         region_name='eu-central-1',
         queue_name=queue_name,

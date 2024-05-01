@@ -125,7 +125,6 @@ class TranscriptionOnlyHandler(MessageHandler):
         else:
             print_speech(transcription_output.segments)
 
-        # print(result)
 
 from datetime import timedelta
 

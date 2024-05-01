@@ -12,7 +12,6 @@ def test_transcription_only_handler() -> None:
 
     tensor_tuple = handler.convert_to_audio_tensor(analyzed_filepath, None, None)
 
-    print(tensor_tuple)
 
 
 test_transcription_only_handler()
