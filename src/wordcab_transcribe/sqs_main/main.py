@@ -16,3 +16,8 @@ def transcription_only_cosumer(queue_name: str) -> None:
 
 if __name__ == "__main__":
     transcription_only_cosumer("test-jonas")
+
+
+# to run it 
+
+# PYTHONPATH="/app/src:$PYTHONPATH" python -m src.wordcab_transcribe.sqs_main.main

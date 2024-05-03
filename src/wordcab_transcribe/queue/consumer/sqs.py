@@ -1,7 +1,6 @@
 import boto3
 import time
 import threading
-import json
 
 from botocore.config import Config
 
