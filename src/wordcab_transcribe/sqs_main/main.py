@@ -1,3 +1,4 @@
+from wordcab_transcribe.services.queue.handler import MessageHandler
 from wordcab_transcribe.queue.consumer.sqs import SQSConsumer
 from wordcab_transcribe.services.queue.transcribe_handler import TranscriptionOnlyHandler
 
@@ -21,3 +22,7 @@ if __name__ == "__main__":
 # to run it 
 
 # PYTHONPATH="/app/src:$PYTHONPATH" python -m src.wordcab_transcribe.sqs_main.main
+
+# python -m src.wordcab_transcribe.sqs_main.main
+
+# docker run -it --rm -v "$(pwd)/src:/app/src" -v ~/.cache:/root/.cache -e WHISPER_MODEL="tiny.en" -e COMPUTE_TYPE="int8" -e ENABLE_PUNCTUATION_BASED_ALIGNMENT="False" -e PYTHONPATH="/app/src" us-docker.pkg.dev/seldoncortex/wordcab-transcribe/main-branch:no_hatch_v3 bash
